@@ -9,9 +9,10 @@ ruby_build_ruby node[:ruby][:version] do
   cflags = case node[:ruby][:version]
            when /^1\.9/
              '-march=native -g -O2'
-           when /^2\.0/
-             "-O3 -pipe#{' -Wno-error=shorten-64-to-32' if platform?('debian')}"
-           else
+             # fails on wheezy
+           #when /^2\.0/
+           #  "-O3 -pipe#{' -Wno-error=shorten-64-to-32' if platform?('debian')}"
+           when /^1\.8/
              '-O2'
            end
   environment( 'CFLAGS' => cflags )
